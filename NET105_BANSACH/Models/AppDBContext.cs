@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace NET105_BANSACH.Models
 {
@@ -24,7 +23,11 @@ namespace NET105_BANSACH.Models
         protected override void OnConfiguring(DbContextOptionsBuilder OptionsBuilder)
         {
             base.OnConfiguring(OptionsBuilder);
-            // OptionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Practice1_Codefirst_EFCore_NET105;Integrated Security=True;Connect Timeout=10;Encrypt=True;");
+            IConfigurationRoot Configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json")
+                .Build();
+            OptionsBuilder.UseSqlServer(Configuration.GetConnectionString("BookstoreDatabase"));
         }
 
         // protected override void OnModelCreating(ModelBuilder ModelBuilder)
