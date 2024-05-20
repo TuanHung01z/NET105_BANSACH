@@ -4,7 +4,6 @@ namespace NET105_BANSACH.Models
 {
     public class Account
     {
-        [Key]
         [Required]
         [StringLength(256, MinimumLength = 6, ErrorMessage = "Tên người dùng phải từ 6 - 256 ký tự.")]
         public string Username { get; set; } = null!;

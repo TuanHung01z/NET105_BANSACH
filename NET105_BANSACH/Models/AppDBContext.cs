@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Reflection;
 
 namespace NET105_BANSACH.Models
 {
@@ -22,17 +24,13 @@ namespace NET105_BANSACH.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder OptionsBuilder)
         {
-            base.OnConfiguring(OptionsBuilder);
-            IConfigurationRoot Configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json")
-                .Build();
-            OptionsBuilder.UseSqlServer(Configuration.GetConnectionString("BookstoreDatabase"));
+            OptionsBuilder.UseSqlServer("Data Source=DESKTOP-QM5ES3L\\HUNGTUAN;Initial Catalog=Ontap320021;Integrated Security=True; TrustServerCertificate=True");
         }
 
-        // protected override void OnModelCreating(ModelBuilder ModelBuilder)
-        // {
-        //     ModelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-        // }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
     }
 }

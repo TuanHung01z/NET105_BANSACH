@@ -1,0 +1,25 @@
+﻿@if (TempData["Status"] != null)
+{
+    <div class="alert alert-success">
+        @*đưa ra thông báo*@
+        @TempData["Status"]
+    </div>
+}
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+
+    <div class="form-group">
+        @Html.Label("Username")
+        @Html.TextBox("username", "", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Password")
+        @Html.Password("password", "", new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+    <a href="@Url.Action("SignUp", "Account")" class="btn btn-link">Register</a>
+}

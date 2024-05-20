@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NET105_BANSACH.Migrations
 {
-    public partial class InitialModel : Migration
+    public partial class _2131 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,10 +14,10 @@ namespace NET105_BANSACH.Migrations
                 columns: table => new
                 {
                     Username = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
+                    Password = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Address = table.Column<string>(type: "nchar(256)", fixedLength: true, maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -112,24 +112,24 @@ namespace NET105_BANSACH.Migrations
                 {
                     CartDetailsID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductID = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(256)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    CartUsername = table.Column<string>(type: "nvarchar(256)", nullable: true)
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CartsDetails", x => x.CartDetailsID);
                     table.ForeignKey(
+                        name: "FK_Cart_CartDetails",
+                        column: x => x.Username,
+                        principalTable: "Carts",
+                        principalColumn: "Username",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_CartsDetails_Books_ProductID",
                         column: x => x.ProductID,
                         principalTable: "Books",
                         principalColumn: "BookID");
-                    table.ForeignKey(
-                        name: "FK_CartsDetails_Carts_CartUsername",
-                        column: x => x.CartUsername,
-                        principalTable: "Carts",
-                        principalColumn: "Username");
                 });
 
             migrationBuilder.CreateIndex(
@@ -148,14 +148,14 @@ namespace NET105_BANSACH.Migrations
                 column: "Username");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartsDetails_CartUsername",
-                table: "CartsDetails",
-                column: "CartUsername");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CartsDetails_ProductID",
                 table: "CartsDetails",
                 column: "ProductID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartsDetails_Username",
+                table: "CartsDetails",
+                column: "Username");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -170,10 +170,10 @@ namespace NET105_BANSACH.Migrations
                 name: "Bills");
 
             migrationBuilder.DropTable(
-                name: "Books");
+                name: "Carts");
 
             migrationBuilder.DropTable(
-                name: "Carts");
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "Accounts");

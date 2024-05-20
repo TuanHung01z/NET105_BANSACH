@@ -12,8 +12,8 @@ using NET105_BANSACH.Models;
 namespace NET105_BANSACH.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20240518130731_InitialModel")]
-    partial class InitialModel
+    [Migration("20240520041209_2131")]
+    partial class _2131
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,7 +31,10 @@ namespace NET105_BANSACH.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .IsUnicode(true)
+                        .HasColumnType("nchar(256)")
+                        .IsFixedLength();
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -39,7 +42,7 @@ namespace NET105_BANSACH.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -151,9 +154,6 @@ namespace NET105_BANSACH.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("CartUsername")
-                        .HasColumnType("nvarchar(256)");
-
                     b.Property<string>("ProductID")
                         .HasColumnType("nvarchar(450)");
 
@@ -165,13 +165,13 @@ namespace NET105_BANSACH.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("CartDetailsID");
 
-                    b.HasIndex("CartUsername");
-
                     b.HasIndex("ProductID");
+
+                    b.HasIndex("Username");
 
                     b.ToTable("CartsDetails");
                 });
@@ -215,13 +215,16 @@ namespace NET105_BANSACH.Migrations
 
             modelBuilder.Entity("NET105_BANSACH.Models.CartDetails", b =>
                 {
-                    b.HasOne("NET105_BANSACH.Models.Cart", "Cart")
-                        .WithMany()
-                        .HasForeignKey("CartUsername");
-
                     b.HasOne("NET105_BANSACH.Models.Book", "Product")
                         .WithMany("CartDetails")
                         .HasForeignKey("ProductID");
+
+                    b.HasOne("NET105_BANSACH.Models.Cart", "Cart")
+                        .WithMany("Details")
+                        .HasForeignKey("Username")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_Cart_CartDetails");
 
                     b.Navigation("Cart");
 
@@ -245,6 +248,11 @@ namespace NET105_BANSACH.Migrations
                     b.Navigation("BillDetails");
 
                     b.Navigation("CartDetails");
+                });
+
+            modelBuilder.Entity("NET105_BANSACH.Models.Cart", b =>
+                {
+                    b.Navigation("Details");
                 });
 #pragma warning restore 612, 618
         }
