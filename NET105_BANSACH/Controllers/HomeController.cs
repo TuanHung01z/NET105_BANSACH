@@ -15,6 +15,21 @@ namespace NET105_BANSACH.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetString("NameUser") == null || HttpContext.Session.GetInt32("PriorityPower_or_PP") == null)
+            {
+                ViewData["Status"] = "Bạn chưa đăng nhập?!";
+            }
+            else
+            {
+                if (HttpContext.Session.GetInt32("PriorityPower_or_PP") >= 0)
+                {
+                    ViewData["Status"] = $"Chào mừng, {HttpContext.Session.GetString("NameUser")}???";
+                }
+                else
+                {
+                    ViewData["Status"] = "Blocked";
+                }
+            }
             return View();
         }
 

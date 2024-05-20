@@ -1,7 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using NET105_BANSACH.Models; 
+
 var builder = WebApplication.CreateBuilder(args);
+
+#pragma warning disable ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+
+var configuration = builder.Services.BuildServiceProvider().GetService<IConfiguration>();
+
+#pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+builder.Services.AddDbContext<AppDBContext>(Options => Options.UseSqlServer
+(configuration?.GetConnectionString("DSCongNhan")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSession(option =>
+option.IdleTimeout = TimeSpan.FromSeconds(30)
+);
 
 var app = builder.Build();
 
@@ -15,6 +29,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 
 app.UseRouting();
 

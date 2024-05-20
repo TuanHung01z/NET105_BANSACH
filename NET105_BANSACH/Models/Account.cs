@@ -16,6 +16,7 @@ namespace NET105_BANSACH.Models
         [RegularExpression("\\d{10,16}")]
         public string? PhoneNumber { get; set; }
         public string? Address { get; set; }
+        public int Status { get; set; }
         public virtual List<Bill>? Bills { get; set; }
         public virtual Cart? Cart { get; set; }
     }
