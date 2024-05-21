@@ -25,16 +25,16 @@
                 @Html.DisplayNameFor(model => model.Status)
             </th>
             <th>
-
+                Hành động
             </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Book.Title)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
@@ -44,7 +44,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
-
+            <td>
+                <a asp-action="Delete" asp-route-Target="@item.CartDetailsID" class="btn btn-danger">Loại bỏ</a>
+            </td>
         </tr>
 }
     </tbody>

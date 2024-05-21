@@ -29,5 +29,16 @@ namespace NET105_BANSACH.Controllers
                 return View(CartItems);
             }
         }
+
+        public async Task<IActionResult> Delete(Guid Target)
+        {
+            var CartItem = await _Context.CartsDetails.FindAsync(Target);
+            if (CartItem != null)
+            {
+                _Context.CartsDetails.Remove(CartItem);
+            }
+            await _Context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
