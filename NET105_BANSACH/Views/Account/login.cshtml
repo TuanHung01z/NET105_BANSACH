@@ -1,25 +1,113 @@
-﻿@if (TempData["Status"] != null)
-{
-    <div class="alert alert-success">
-        @*đưa ra thông báo*@
-        @TempData["Status"]
-    </div>
+﻿@{
+    Layout = null;
 }
-<h2>Login</h2>
 
-@using (Html.BeginForm("Login", "Account", FormMethod.Post))
-{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - NET105_BANSACH</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+        }
 
-    <div class="form-group">
-        @Html.Label("Username")
-        @Html.TextBox("username", "", new { @class = "form-control" })
+        .login-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+            .login-container h2 {
+                margin-bottom: 20px;
+                font-weight: 300;
+                text-align: center;
+            }
+
+        .form-group label {
+            font-weight: 500;
+        }
+
+        .btn-custom {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+            .btn-custom:hover {
+                transform: scale(1.05);
+            }
+
+        .btn-success-custom {
+            background-color: #28a745;
+            border: none;
+        }
+
+            .btn-success-custom:hover {
+                background-color: #218838;
+            }
+
+        .btn-primary-custom {
+            background-color: #007bff;
+            border: none;
+        }
+
+            .btn-primary-custom:hover {
+                background-color: #0069d9;
+            }
+
+        .btn-link {
+            display: block;
+            text-align: center;
+            padding: 0;
+        }
+
+        .alert-success {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        @if (TempData["Status"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Status"]
+            </div>
+        }
+        <h2>Login</h2>
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.Label("Username")
+                @Html.TextBox("username", "", new { @class = "form-control", placeholder = "Enter username" })
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Password")
+                @Html.Password("password", "", new { @class = "form-control", placeholder = "Enter password" })
+            </div>
+            <h1></h1>
+            <button type="submit" class="btn btn-success btn-custom btn-success-custom">Đăng nhập</button>
+            <a href="@Url.Action("SignUp", "Account")" class="btn btn-primary btn-custom btn-primary-custom">Đăng ký</a>
+        }
     </div>
-
-    <div class="form-group">
-        @Html.Label("Password")
-        @Html.Password("password", "", new { @class = "form-control" })
-    </div>
-
-    <button type="submit" class="btn btn-primary">Login</button>
-    <a href="@Url.Action("SignUp", "Account")" class="btn btn-link">Register</a>
-}
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
