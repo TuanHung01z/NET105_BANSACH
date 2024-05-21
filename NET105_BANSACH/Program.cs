@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 #pragma warning disable ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
 
+// Note: This code will be deprecated after Configurations are imported back.....
+
 var configuration = builder.Services.BuildServiceProvider().GetService<IConfiguration>();
 
 #pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'

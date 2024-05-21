@@ -4,6 +4,10 @@ namespace NET105_BANSACH.Models
 {
     public class AppDBContext : DbContext
     {
+        public AppDBContext()
+        {
+        }
+
         public AppDBContext(DbContextOptions<AppDBContext> Options) : base(Options)
         {
 
