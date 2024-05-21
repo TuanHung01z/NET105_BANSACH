@@ -7,7 +7,7 @@ namespace NET105_BANSACH.Models
     {
         [Key]
         public Guid CartDetailsID { get; set; }
-        public string? ProductID { get; set; }
+        public string? BookID { get; set; }
         [ForeignKey("Username")]
         public string Username { get; set; } = null!;
         public int Quantity { get; set; }

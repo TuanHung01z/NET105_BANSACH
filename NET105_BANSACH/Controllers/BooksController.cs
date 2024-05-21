@@ -164,14 +164,14 @@ namespace NET105_BANSACH.Controllers
             }
             else
             {
-                var CartItem = _context.CartsDetails.FirstOrDefault(Property => Property.ProductID == ID && Property.Username == CheckIfSessionExists);
+                var CartItem = _context.CartsDetails.FirstOrDefault(Property => Property.BookID == ID && Property.Username == CheckIfSessionExists);
                 if (CartItem == null)
                 {
                     CartDetails Details = new()
                     {
                         CartDetailsID = Guid.NewGuid(),
                         Username = CheckIfSessionExists,
-                        ProductID = ID,
+                        BookID = ID,
                         Quantity = QuantityGet,
                         Status = 1
                     };
