@@ -16,7 +16,7 @@ builder.Services.AddDbContext<AppDBContext>(Options => Options.UseSqlServer
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession(option =>
-option.IdleTimeout = TimeSpan.FromSeconds(30)
+option.IdleTimeout = TimeSpan.FromSeconds(300)
 );
 
 var app = builder.Build();

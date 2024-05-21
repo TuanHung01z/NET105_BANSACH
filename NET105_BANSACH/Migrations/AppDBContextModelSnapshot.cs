@@ -17,10 +17,10 @@ namespace NET105_BANSACH.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.13")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("NET105_BANSACH.Models.Account", b =>
                 {
@@ -41,6 +41,9 @@ namespace NET105_BANSACH.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Username");
 
@@ -86,9 +89,6 @@ namespace NET105_BANSACH.Migrations
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
-
-                    b.Property<string>("ProductID")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -149,11 +149,14 @@ namespace NET105_BANSACH.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("BookID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("CartUsername")
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("ProductID")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -167,9 +170,9 @@ namespace NET105_BANSACH.Migrations
 
                     b.HasKey("CartDetailsID");
 
-                    b.HasIndex("CartUsername");
+                    b.HasIndex("BookID");
 
-                    b.HasIndex("ProductID");
+                    b.HasIndex("CartUsername");
 
                     b.ToTable("CartsDetails");
                 });
@@ -213,17 +216,17 @@ namespace NET105_BANSACH.Migrations
 
             modelBuilder.Entity("NET105_BANSACH.Models.CartDetails", b =>
                 {
+                    b.HasOne("NET105_BANSACH.Models.Book", "Book")
+                        .WithMany("CartDetails")
+                        .HasForeignKey("BookID");
+
                     b.HasOne("NET105_BANSACH.Models.Cart", "Cart")
                         .WithMany()
                         .HasForeignKey("CartUsername");
 
-                    b.HasOne("NET105_BANSACH.Models.Book", "Product")
-                        .WithMany("CartDetails")
-                        .HasForeignKey("ProductID");
+                    b.Navigation("Book");
 
                     b.Navigation("Cart");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("NET105_BANSACH.Models.Account", b =>

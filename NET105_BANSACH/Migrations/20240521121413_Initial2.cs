@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NET105_BANSACH.Migrations
 {
-    public partial class InitialModel : Migration
+    /// <inheritdoc />
+    public partial class Initial2 : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -17,7 +19,8 @@ namespace NET105_BANSACH.Migrations
                     Password = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,10 +88,9 @@ namespace NET105_BANSACH.Migrations
                 {
                     BillDetailsID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BillID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BookID = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    BookID = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,18 +113,19 @@ namespace NET105_BANSACH.Migrations
                 columns: table => new
                 {
                     CartDetailsID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ProductID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    CartUsername = table.Column<string>(type: "nvarchar(256)", nullable: true)
+                    CartUsername = table.Column<string>(type: "nvarchar(256)", nullable: true),
+                    BookID = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CartsDetails", x => x.CartDetailsID);
                     table.ForeignKey(
-                        name: "FK_CartsDetails_Books_ProductID",
-                        column: x => x.ProductID,
+                        name: "FK_CartsDetails_Books_BookID",
+                        column: x => x.BookID,
                         principalTable: "Books",
                         principalColumn: "BookID");
                     table.ForeignKey(
@@ -148,16 +151,17 @@ namespace NET105_BANSACH.Migrations
                 column: "Username");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CartsDetails_BookID",
+                table: "CartsDetails",
+                column: "BookID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CartsDetails_CartUsername",
                 table: "CartsDetails",
                 column: "CartUsername");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CartsDetails_ProductID",
-                table: "CartsDetails",
-                column: "ProductID");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

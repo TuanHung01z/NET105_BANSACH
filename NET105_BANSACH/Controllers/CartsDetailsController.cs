@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NET105_BANSACH.Models;
 
 namespace NET105_BANSACH.Controllers
@@ -12,7 +13,7 @@ namespace NET105_BANSACH.Controllers
         }
 
         // GET: CartController
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var CheckIfSessionStillAlive = HttpContext.Session.GetString("NameUser");
             if (string.IsNullOrWhiteSpace(CheckIfSessionStillAlive))
@@ -22,7 +23,9 @@ namespace NET105_BANSACH.Controllers
             }
             else
             {
-                var CartItems = _Context.CartsDetails.Where(Property => Property.Username == CheckIfSessionStillAlive);
+                var CartItems = _Context.CartsDetails
+                    .Include(ProductP => ProductP.Book)
+                    .Where(Property => Property.Username == CheckIfSessionStillAlive);
                 return View(CartItems);
             }
         }

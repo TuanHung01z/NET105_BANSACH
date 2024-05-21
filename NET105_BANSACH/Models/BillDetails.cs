@@ -9,7 +9,7 @@ namespace NET105_BANSACH.Models
         public Guid BillDetailsID { get; set; }
         [ForeignKey("Bill")]
         public Guid BillID { get; set; }
-        public string? ProductID { get; set; }
+        public string? BookID { get; set; }
         public int Quantity { get; set; }
         public int Price { get; set; }
         public virtual Bill? Bill { get; set; }
