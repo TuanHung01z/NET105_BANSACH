@@ -17,13 +17,13 @@ namespace NET105_BANSACH.Controllers
         {
             if (HttpContext.Session.GetString("NameUser") == null || HttpContext.Session.GetInt32("PriorityPower_or_PP") == null)
             {
-                ViewData["Status"] = "Bạn chưa đăng nhập?!";
+                ViewData["Status"] = "Bạn chưa đăng nhập!";
             }
             else
             {
                 if (HttpContext.Session.GetInt32("PriorityPower_or_PP") >= 0)
                 {
-                    ViewData["Status"] = $"Chào mừng, {HttpContext.Session.GetString("NameUser")}???";
+                    ViewData["Status"] = $"Chào mừng, {HttpContext.Session.GetString("NameUser")}";
                     ViewData["ControlsEnabled"] = "Yes";
                 }
                 else
