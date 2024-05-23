@@ -9,7 +9,8 @@
 <div class="col-8">
         @if (ViewData["ControlsEnabled"]?.ToString() == "Yes")
         {
-            <a asp-controller="Books" asp-action="Index" class="btn btn-primary">Xem danh sách Sách</a>
+            <a asp-controller="Books" asp-action="Index" class="btn btn-primary">Xem danh sách Sách</a><br /><br />
+            <a asp-controller="CartsDetails" asp-action="Index" class="btn btn-warning">Xem giỏ hàng hiện tại</a>
         }
 </div>
     <div class="col-2"></div>
