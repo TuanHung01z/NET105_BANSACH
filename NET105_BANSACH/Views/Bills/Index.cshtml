@@ -1,0 +1,49 @@
+﻿@model IEnumerable<NET105_BANSACH.Models.Bill>
+
+@{
+    ViewData["Title"] = "Hóa đơn";
+}
+
+<h1>Hóa đơn</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Mã HĐ
+            </th>
+            <th>
+                Mô tả
+            </th>
+            <th>
+                Thời gian đã tạo
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @* <a asp-action="Details" asp-route-id="@item.BillID">Chi tiết</a> *@
+                <a class="btn btn-secondary" href="BillDetails/Index?BillID=@item.BillID">Chi tiết</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

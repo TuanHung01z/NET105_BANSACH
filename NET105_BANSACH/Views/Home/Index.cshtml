@@ -2,9 +2,15 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h3>@ViewData["Status"]</h3>
+<h3 class="text-center">@ViewData["Status"]</h3>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row text-center">
+    <div class="col-2"></div>
+<div class="col-8">
+        @if (ViewData["ControlsEnabled"]?.ToString() == "Yes")
+        {
+            <a asp-controller="Books" asp-action="Index" class="btn btn-primary">Xem danh sách Sách</a>
+        }
+</div>
+    <div class="col-2"></div>
 </div>

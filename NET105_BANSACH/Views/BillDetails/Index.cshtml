@@ -1,0 +1,59 @@
+﻿@model IEnumerable<NET105_BANSACH.Models.BillDetails>
+
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+<h1>Đơn hàng của @ViewData["TargetUser"]</h1>
+<p style="font-size:x-small"></p>
+
+<p>
+    <a class="btn btn-secondary" asp-action="GoBack">Về trang trước</a>
+</p>
+
+<table class="table text-center table-bordered table-hover">
+    <thead class="table-warning">
+        <tr>
+            <th>
+                Tên sách
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Tổng
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Book.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td class="TotalTally">
+                @{
+                    @(item.Quantity * item.Price);
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"><b>Tổng</b></td>
+            <td>
+                <span id="TotalPrice"></span>
+            </td>
+        </tr>
+    </tfoot>
+</table>

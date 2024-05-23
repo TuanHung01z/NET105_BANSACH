@@ -1,61 +1,59 @@
 ﻿@model NET105_BANSACH.Models.Book
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Tạo mới";
 }
 
-<h1>Create</h1>
+<h1>Tạo mới</h1>
 
-<h4>Book</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+<div class="form-group">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row pb-1">
+            <div class="col-5">
                 <label asp-for="BookID" class="control-label"></label>
                 <input asp-for="BookID" class="form-control" />
                 <span asp-validation-for="BookID" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="col-7">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+        </div>
+        <div class="row pb-1">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="row pb-1">
+            <div class="col-3">
                 <label asp-for="Author" class="control-label"></label>
                 <input asp-for="Author" class="form-control" />
                 <span asp-validation-for="Author" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="col-3">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="col-3">
                 <label asp-for="Amount" class="control-label"></label>
                 <input asp-for="Amount" class="form-control" />
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="col-3">
                 <label asp-for="Status" class="control-label"></label>
                 <input asp-for="Status" class="form-control" />
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+        </div><br />
+        <div class="text-center pb-1">
+            <button type="submit" value="Create" class="btn btn-primary">Tạo mới</button>
+            <a class="btn btn-secondary" asp-action="Index">Về danh sách</a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {

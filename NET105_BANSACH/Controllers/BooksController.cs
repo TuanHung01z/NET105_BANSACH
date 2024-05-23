@@ -154,17 +154,19 @@ namespace NET105_BANSACH.Controllers
             return _context.Books.Any(e => e.BookID == id);
         }
 
-        public IActionResult Add2Cart(string ID, int QuantityGet = 1)
+        public IActionResult Add2Cart(string ID, int QuantityGet)
         {
+            QuantityGet = 1;
             var CheckIfSessionExists = HttpContext.Session.GetString("NameUser");
             if (string.IsNullOrWhiteSpace(CheckIfSessionExists))
             {
-                TempData["NotificationFail"] = "Bạn điền thiếu thông tin!";
+                TempData["NotificationFail"] = "Phiên đăng nhập đã hết hạn. Hãy đăng nhập lại!";
                 return RedirectToAction("Login", "Account");
             }
             else
             {
                 var CartItem = _context.CartsDetails.FirstOrDefault(Property => Property.BookID == ID && Property.Username == CheckIfSessionExists);
+                var CartUser = _context.Carts.FirstOrDefault(Property => Property.Username == CheckIfSessionExists);
                 if (CartItem == null)
                 {
                     CartDetails Details = new()
@@ -182,6 +184,16 @@ namespace NET105_BANSACH.Controllers
                 {
                     CartItem.Quantity += QuantityGet;
                     _context.CartsDetails.Update(CartItem);
+                    _context.SaveChanges();
+                }
+                if (CartUser == null)
+                {
+                    Cart NewCart = new()
+                    {
+                        Username = CheckIfSessionExists,
+                        Status = 1
+                    };
+                    _context.Carts.Add(NewCart);
                     _context.SaveChanges();
                 }
                 return RedirectToAction("Index", "CartsDetails");

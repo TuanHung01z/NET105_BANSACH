@@ -1,46 +1,46 @@
 ﻿@model IEnumerable<NET105_BANSACH.Models.Book>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sách";
 }
 
-<h1>Index</h1>
+<h1>Danh sách Sách</h1>
 
-<p>
+@* <p>
     <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+</p> *@
+<table class="table text-center table-bordered table-hover">
+    <thead class="table-primary">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Mã sách
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Tên sách
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Author)
+                Tác giả
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                Giá
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Amount)
+                S.lượng còn lại
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Trạng thái
             </th>
-            <th></th>
+            <th>Hành động</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.BookID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Author)
@@ -55,12 +55,61 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BookID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BookID">Delete</a> |
-                <a asp-action="Add2Cart" asp-route-id="@item.BookID">Add To Cart</a>
+                @* <a asp-action="Edit" asp-route-id="@item.BookID">Edit</a> | *@
+
+                <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.BookID">Mô tả</a>
+
+                @* <a asp-action="Delete" asp-route-id="@item.BookID">Delete</a> | *@
+
+                    <a class="btn btn-primary" asp-action="Add2Cart" asp-route-id="@item.BookID">Thêm vào giỏ hàng</a>
+
+                @* <button class="btn btn-primary" id="GetData" value="@item.BookID"
+                        data-bs-toggle="modal" data-bs-target="#AmountProduct">
+                        Thêm vào giỏ hàng
+                    </button> *@
+
+@*                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#AmountProduct" asp-route-ID="@item.BookID" id="GetThing">
+                        Thêm vào giỏ hàng
+                    </button> *@
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<div class="modal fade" id="AmountProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="AmountProductLabel">Nhập số lượng</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Hủy"></button>
+            </div>
+            <div class="modal-body">
+                Nhập số lượng hàng cần thêm. <span id="Debug"></span><br />
+                <input type="number" class="form-control" id="Quantity" name="Quantity"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <a class="btn btn-danger" id="Confirm" asp-action="Add2Cart" asp-route-ID="">Xác nhận</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* @section Scripts
+{
+    <script>
+        var ItemID = undefined;
+        $('#GetData').click(function () {
+            ItemID = $('#GetData').val();
+            // getting the value of the input fields
+
+            // adding the data to the modal
+            $('#Debug').html("(ID: " + ItemID + ")");
+        });
+
+        $('#Confirm').click(function () {
+        });
+    </script>
+} *@

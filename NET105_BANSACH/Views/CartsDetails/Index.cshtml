@@ -1,28 +1,36 @@
 ﻿@model IEnumerable<NET105_BANSACH.Models.CartDetails>
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Giỏ hàng";
 }
 
-<h1>Your cart</h1>
+<h1>Giỏ hàng của @ViewData["TargetUser"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-secondary" asp-action="GoBack">Về trang trước</a>
 </p>
-<table class="table">
-    <thead>
+
+@if (TempData["NotificationFail"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["NotificationFail"]
+    </div>
+}
+
+<table class="table text-center table-bordered table-hover">
+    <thead class="table-warning">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Book)
+                Tên sách
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Username)
+                Tên người dùng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quantity)
+                Số lượng
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                Trạng thái
             </th>
             <th>
                 Hành động
@@ -51,3 +59,23 @@
 }
     </tbody>
 </table>
+<br />
+<a class="btn btn-success" asp-action="CreateBill">Xác nhận mua</a>
+
+@* <div class="modal fade" id="Modal_Confirmation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="Modal_ConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-center" id="Modal_ConfirmationLabel">Xác nhận</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Hủy"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn mua? Thao tác này sẽ không thể khôi phục lại được.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <a type="button" class="btn btn-danger" asp-action="CreateBill">Xác nhận</a>
+            </div>
+        </div>
+    </div>
+</div> *@
